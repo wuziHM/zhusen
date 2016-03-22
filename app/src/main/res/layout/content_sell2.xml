@@ -1,6 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/floralwhite">
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical|right"
+            android:padding="@dimen/dp_10"
+            android:text="5头"
+            android:textColor="@color/red"
+            android:textSize="@dimen/big_text" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/orangered"
+            android:gravity="center"
+            android:padding="@dimen/dp_10"
+            android:text="共计:10000元"
+            android:textColor="@color/white"
+            android:textSize="@dimen/big_text" />
+    </LinearLayout>
+
+</RelativeLayout>

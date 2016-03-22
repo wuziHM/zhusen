@@ -14,6 +14,8 @@ import allenhu.pig.R;
 import allenhu.pig.adapter.MyPagerAdapter;
 import allenhu.pig.base.BaseActivity;
 import allenhu.pig.base.BaseFragment;
+import allenhu.pig.bean.Pig;
+import allenhu.pig.bean.SubjectForPig;
 import allenhu.pig.fragment.NowFragment;
 import allenhu.pig.fragment.TotalFragment;
 import allenhu.pig.util.LogUtil;
@@ -27,8 +29,10 @@ public class SellActivity extends BaseActivity {
     private ViewPager mViewPager;
     private LayoutInflater mInflater;
     private List<String> mTitles = new ArrayList<>();
-    private BaseFragment view1, view2;
+    private NowFragment view1;
+    private TotalFragment view2;
     private List<BaseFragment> mViewList = new ArrayList<>();
+    private SubjectForPig pig;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,11 +66,18 @@ public class SellActivity extends BaseActivity {
         mTabLayout.setupWithViewPager(mViewPager);
         //将TabLayout和ViewPager关联起来
         mTabLayout.setTabsFromPagerAdapter(myPagerAdapter);
+
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         ((NowFragment) view1).setPrice();
+    }
+
+    public void setChanged(List<Pig> pigs){
+        pig = new SubjectForPig();
+        view2.registerSubject(pig);
+        pig.setPigList(pigs);
     }
 }

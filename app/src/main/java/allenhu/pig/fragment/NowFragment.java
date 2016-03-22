@@ -53,6 +53,7 @@ public class NowFragment extends BaseFragment implements AdapterView.OnItemSelec
     private ImageView ivMod;
     private int count = 1;
     private List<Pig> pigs = new ArrayList<>();
+    private String price;
 
     @Nullable
     @Override
@@ -68,6 +69,9 @@ public class NowFragment extends BaseFragment implements AdapterView.OnItemSelec
     }
 
     private void initView() {
+
+        price = Market.getInstance().getPrice();
+
         tvCount = (TextView) rootView.findViewById(R.id.tv_count);
 //        SpannableStringBuilder builder = setColor();
 //        tvCount.setText(builder);
@@ -76,7 +80,7 @@ public class NowFragment extends BaseFragment implements AdapterView.OnItemSelec
         tvMoney = (TextView) rootView.findViewById(R.id.tv_money);
 
         tvPrice = (TextView) rootView.findViewById(R.id.tv_price);
-        tvPrice.setText(DecimalUtil.formatFloat(Market.getInstance().getPrice()) + " 元/斤");
+        tvPrice.setText(Market.getInstance().getPrice() + " 元/斤");
 
         spinner = (Spinner) rootView.findViewById(R.id.spin_one);
         spinner.setOnItemSelectedListener(this);
@@ -88,6 +92,7 @@ public class NowFragment extends BaseFragment implements AdapterView.OnItemSelec
         btnNext.setOnClickListener(this);
 
         edtWeight = (EditText) rootView.findViewById(R.id.edt_weight);
+
         edtWeight.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -97,21 +102,31 @@ public class NowFragment extends BaseFragment implements AdapterView.OnItemSelec
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                if (s.length() <= 0) {
+                if (!DecimalUtil.isRightFloat(s.toString())) {
                     tvMoney.setText("");
                     btnNext.setBackgroundResource(R.color.gray);
                     return;
                 }
+
+                if (s.toString().contains(".")) {
+                    if (s.length() - 1 - s.toString().indexOf(".") > 2) {
+                        s = s.toString().subSequence(0,
+                                s.toString().indexOf(".") + 3);
+                        edtWeight.setText(s);
+                        edtWeight.setSelection(s.length());
+                    }
+                }
+
                 Float weight = Float.parseFloat(s.toString());
                 btnNext.setBackgroundResource(R.color.orangered);
                 switch (spinner.getSelectedItemPosition()) {
                     case 0:
-                        tvMoney.setText(DecimalUtil.formatFloat(weight * Market.getInstance().getPrice() * 2));
+                        tvMoney.setText(DecimalUtil.formatFloat(weight * Float.parseFloat(price) * 2));
                         Market.getInstance().setWeightUnit(WeightUnit.KG);
                         break;
 
                     case 1:
-                        tvMoney.setText(DecimalUtil.formatFloat(weight * Market.getInstance().getPrice()));
+                        tvMoney.setText(DecimalUtil.formatFloat(weight * Float.parseFloat(price)));
                         Market.getInstance().setWeightUnit(WeightUnit.JIN);
                         break;
                 }
@@ -158,20 +173,20 @@ public class NowFragment extends BaseFragment implements AdapterView.OnItemSelec
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         float weight, money;
 
-        if (TextUtils.isEmpty(edtWeight.getText().toString())) {
+        if (!DecimalUtil.isRightFloat(edtWeight.getText().toString())) {
             return;
         }
-
+        String p = Market.getInstance().getPrice();
         switch (position) {
             case 0:
                 weight = Float.parseFloat(edtWeight.getText().toString());
-                tvMoney.setText(DecimalUtil.formatFloat(weight * Market.getInstance().getPrice() * 2));
+                tvMoney.setText(DecimalUtil.formatFloat(weight * Float.parseFloat(p) * 2));
 
                 break;
 
             case 1:
                 weight = Float.valueOf(edtWeight.getText().toString());
-                tvMoney.setText(DecimalUtil.formatFloat(weight * Market.getInstance().getPrice()));
+                tvMoney.setText(DecimalUtil.formatFloat(weight * Float.parseFloat(p)));
                 break;
         }
     }
@@ -189,7 +204,7 @@ public class NowFragment extends BaseFragment implements AdapterView.OnItemSelec
                 break;
 
             case R.id.btn_next:
-                if (edtWeight.getText().toString().length() <= 0) {
+                if (!DecimalUtil.isRightFloat(edtWeight.getText().toString())) {
                     Toast.makeText(activity, R.string.on_weight, Toast.LENGTH_SHORT).show();
                     break;
                 }
@@ -215,13 +230,15 @@ public class NowFragment extends BaseFragment implements AdapterView.OnItemSelec
         setColor();
         edtWeight.setText("");
         tvMoney.setText("");
+        ToastUtil.toast(activity, "添加成功");
     }
 
 
     public void setPrice() {
-        tvPrice.setText(Market.getInstance().getPrice() + "");
+        price = Market.getInstance().getPrice();
+        tvPrice.setText(price);
         if (edtWeight.getText().length() > 0) {
-            tvMoney.setText(DecimalUtil.formatFloat(Float.parseFloat(edtWeight.getText().toString()) * Market.getInstance().getPrice()));
+            tvMoney.setText(DecimalUtil.formatFloat(Float.parseFloat(edtWeight.getText().toString()) * Float.valueOf(price)));
         }
     }
 }

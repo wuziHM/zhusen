@@ -10,6 +10,7 @@ import android.widget.EditText;
 import allenhu.pig.R;
 import allenhu.pig.base.BaseActivity;
 import allenhu.pig.bean.Market;
+import allenhu.pig.util.DecimalUtil;
 import allenhu.pig.util.ToastUtil;
 
 public class ModifActivity extends BaseActivity {
@@ -39,12 +40,19 @@ public class ModifActivity extends BaseActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 //如果文本框里的为空的话  确定的按钮就是灰色
-                if (s.length() > 0) {
+                if (DecimalUtil.isRightFloat(s.toString())) {
                     btnSure.setBackgroundResource(R.color.orangered);
-                    btnSure.setTag(1);
+
+                    if (s.toString().contains(".")) {
+                        if (s.length() - 1 - s.toString().indexOf(".") > 2) {
+                            s = s.toString().subSequence(0,
+                                    s.toString().indexOf(".") + 3);
+                            edtPrice.setText(s);
+                            edtPrice.setSelection(s.length());
+                        }
+                    }
                 } else {
                     btnSure.setBackgroundResource(R.color.gray);
-                    btnSure.setTag(0);
                 }
             }
 
@@ -58,10 +66,11 @@ public class ModifActivity extends BaseActivity {
         btnSure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if ("0".equals(btnSure.getTag())) {
+                if (!DecimalUtil.isRightFloat(edtPrice.getText().toString())) {
                     ToastUtil.toast(ModifActivity.this, "请填写价格");
+                    return;
                 } else {
-                    Market.getInstance().setPrice(Float.parseFloat(edtPrice.getText().toString()));
+                    Market.getInstance().setPrice(DecimalUtil.formatFloat(Float.parseFloat(edtPrice.getText().toString())));
                     setResult(RESULT_OK);
                     finish();
                 }

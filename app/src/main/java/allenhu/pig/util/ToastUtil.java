@@ -18,7 +18,7 @@ public class ToastUtil {
      * @param msg
      */
     public static void toast(Context context, String msg) {
-        Toast.makeText(context, msg, Toast.LENGTH_SHORT);
+        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
     /**
      * 土司打印消息,长时间的消息
@@ -27,7 +27,7 @@ public class ToastUtil {
      * @param msg
      */
     public static void toastLong(Context context, String msg) {
-        Toast.makeText(context, msg, Toast.LENGTH_LONG);
+        Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
     }
 
 }

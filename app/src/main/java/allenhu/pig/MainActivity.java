@@ -15,7 +15,9 @@ import android.widget.Toast;
 import allenhu.pig.activity.SellActivity;
 import allenhu.pig.base.BaseActivity;
 import allenhu.pig.bean.Market;
+import allenhu.pig.util.DecimalUtil;
 import allenhu.pig.util.KeyBorderUtil;
+import allenhu.pig.util.ToastUtil;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
@@ -52,15 +54,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() > 0) {
+                /**
+                 * 价格不能为空，不能以.开头，不能是0
+                 */
+                if (DecimalUtil.isRightFloat(s.toString())) {
                     btnSell.setBackgroundResource(R.color.orangered);
-                    btnSell.setTag(2);
-                    Float price = Float.parseFloat(s.toString());
-                    market.setPrice(price);
                 } else {
                     btnSell.setBackgroundColor(getResources().getColor(R.color.gray));
-                    btnSell.setTag(1);
-                    market.setPrice(-1.0f);
                 }
             }
 
@@ -95,8 +95,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_sell:
-                if (!"1".equals(btnSell.getTag())) {
+                if (DecimalUtil.isRightFloat(edtPrice.getText().toString())) {
                     startActivity(new Intent(MainActivity.this, SellActivity.class));
+                    market.setPrice(DecimalUtil.formatFloat(Float.parseFloat(edtPrice.getText().toString())));
                     finish();
                 } else
                     Toast.makeText(MainActivity.this, "请设置好单价", Toast.LENGTH_SHORT).show();

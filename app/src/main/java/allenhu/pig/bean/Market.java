@@ -10,7 +10,7 @@ public class Market {
 
     private volatile static Market singleton;
 
-    private float price;
+    private String price;
     //    private int count;
 //    private float money;
 //    private float weight;
@@ -30,11 +30,11 @@ public class Market {
         return singleton;
     }
 
-    public float getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 

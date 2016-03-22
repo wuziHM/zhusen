@@ -15,10 +15,10 @@
     <LinearLayout
         android:id="@+id/ly_price"
         style="@style/lyPrice"
-        android:gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_count">
+        android:layout_below="@id/tv_count"
+        android:gravity="center_vertical">
 
         <TextView
             style="@style/normalText"
@@ -29,9 +29,9 @@
         <TextView
             android:id="@+id/tv_price"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_5"
+            android:layout_weight="1"
             android:text="10.0"
             android:textColor="@color/sandybrown"
             android:textSize="16sp" />
@@ -40,7 +40,7 @@
             android:id="@+id/iv_modif"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ic_modif"/>
+            android:src="@mipmap/ic_modif" />
 
     </LinearLayout>
 
@@ -50,7 +50,9 @@
         style="@style/lyPrice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ly_price">
+        android:layout_below="@id/ly_price"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
         <TextView
             android:layout_width="wrap_content"
@@ -104,7 +106,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/lyMoney"
         android:layout_margin="@dimen/dp_20"
-        android:background="@color/orangered"
+        android:background="@color/gray"
+        android:tag="0"
         android:text="确定"
         android:textColor="@color/white"
         android:textSize="16sp" />

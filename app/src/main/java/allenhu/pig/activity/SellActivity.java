@@ -42,12 +42,22 @@ public class SellActivity extends BaseActivity {
     }
 
     private void initView() {
+
+
         mViewPager = (ViewPager) findViewById(R.id.vp_view);
         mTabLayout = (TabLayout) findViewById(R.id.tabs);
 
         mInflater = LayoutInflater.from(this);
         view1 = new NowFragment();
         view2 = new TotalFragment();
+
+        /**
+         * 使用观察者模式，把TotalFragment的对象进行注册，
+         *
+         * 当NowFragment中发生变化的时候通知TotalFragment进行数据更新
+         */
+        pig = new SubjectForPig();
+        view2.registerSubject(pig);
 
         mViewList.add(view1);
         mViewList.add(view2);
@@ -72,12 +82,10 @@ public class SellActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        ((NowFragment) view1).setPrice();
+        view1.setPrice();
     }
 
-    public void setChanged(List<Pig> pigs){
-        pig = new SubjectForPig();
-        view2.registerSubject(pig);
+    public void setChanged(List<Pig> pigs) {
         pig.setPigList(pigs);
     }
 }

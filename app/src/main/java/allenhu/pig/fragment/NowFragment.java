@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,6 +34,8 @@ import allenhu.pig.bean.Market;
 import allenhu.pig.bean.Pig;
 import allenhu.pig.bean.WeightUnit;
 import allenhu.pig.util.DecimalUtil;
+import allenhu.pig.util.LogUtil;
+import allenhu.pig.util.ToastUtil;
 
 /**
  * Author：燕青 $ on 2016/3/18  17:47
@@ -93,11 +96,14 @@ public class NowFragment extends BaseFragment implements AdapterView.OnItemSelec
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+
                 if (s.length() <= 0) {
                     tvMoney.setText("");
+                    btnNext.setBackgroundResource(R.color.gray);
                     return;
                 }
                 Float weight = Float.parseFloat(s.toString());
+                btnNext.setBackgroundResource(R.color.orangered);
                 switch (spinner.getSelectedItemPosition()) {
                     case 0:
                         tvMoney.setText(DecimalUtil.formatFloat(weight * Market.getInstance().getPrice() * 2));
@@ -165,7 +171,6 @@ public class NowFragment extends BaseFragment implements AdapterView.OnItemSelec
 
             case 1:
                 weight = Float.valueOf(edtWeight.getText().toString());
-//                money = weight * Market.getInstance().getPrice() * 1.00f;
                 tvMoney.setText(DecimalUtil.formatFloat(weight * Market.getInstance().getPrice()));
                 break;
         }
@@ -184,6 +189,10 @@ public class NowFragment extends BaseFragment implements AdapterView.OnItemSelec
                 break;
 
             case R.id.btn_next:
+                if (edtWeight.getText().toString().length() <= 0) {
+                    Toast.makeText(activity, R.string.on_weight, Toast.LENGTH_SHORT).show();
+                    break;
+                }
                 Pig pig = new Pig();
                 pig.setMoney(Float.parseFloat(tvMoney.getText().toString()));
                 pig.setWeight(Float.parseFloat(edtWeight.getText().toString()));

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="unit">
-        <item>千克</item>
-        <item>斤</item>
+        <item>@string/kg</item>
+        <item>@string/jin</item>
     </string-array>
 </resources>

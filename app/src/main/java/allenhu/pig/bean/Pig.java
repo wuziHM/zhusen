@@ -13,6 +13,8 @@ public class Pig {
      * 0表示kg《1表示斤
      */
     private int weightUnit;
+    private int count;
+    private String price;
 
 
     private float weight;
@@ -52,5 +54,20 @@ public class Pig {
 
     public void setSellDate(Date sellDate) {
         this.sellDate = sellDate;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
     }
 }

@@ -1,11 +1,13 @@
 <resources>
     <string name="app_name">猪森</string>
 
-
     <string name="sell_pig">卖猪咯</string>
     <string name="title_activity_main2">MainActivity</string>
     <string name="spin_title">选择重量单位</string>
     <string name="modif_price">修改价格</string>
     <string name="on_price">请填写猪的价格（元/斤）</string>
     <string name="sure">确定</string>
+
+    <string name="kg">公斤</string>
+    <string name="jin">斤</string>
 </resources>

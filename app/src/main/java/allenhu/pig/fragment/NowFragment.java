@@ -189,9 +189,11 @@ public class NowFragment extends BaseFragment implements AdapterView.OnItemSelec
                 pig.setWeight(Float.parseFloat(edtWeight.getText().toString()));
                 pig.setWeightUnit(spinner.getSelectedItemPosition());
                 pig.setSellDate(new Date());
+                pig.setCount(count);
+                pig.setPrice(Market.getInstance().getPrice() + "");
                 pigs.add(pig);
                 initData();
-                ((SellActivity)getActivity()).setChanged(pigs);
+                ((SellActivity) getActivity()).setChanged(pigs);
                 break;
         }
     }

@@ -5,10 +5,10 @@
     android:background="@color/floralwhite">
 
     <LinearLayout
+        android:id="@+id/ly_sum"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true">
-
 
 
         <TextView
@@ -31,5 +31,12 @@
             android:textColor="@color/white"
             android:textSize="@dimen/big_text" />
     </LinearLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/ly_sum" />
 
 </RelativeLayout>

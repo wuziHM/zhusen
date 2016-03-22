@@ -56,7 +56,7 @@ public class TotalFragment extends BaseFragment implements Observer {
         tvCount = (TextView) rootView.findViewById(R.id.tv_count);
         tvSumMoney = (TextView) rootView.findViewById(R.id.tv_sum_money);
 
-        tvCount.setText(list.size() + "");
+        tvCount.setText(list.size() + " 头 ");
         tvSumMoney.setText(getSumMoney(list));
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycle);
@@ -64,6 +64,7 @@ public class TotalFragment extends BaseFragment implements Observer {
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
         recyclerView.addItemDecoration(new DividerItemDecoration(activity, DividerItemDecoration.VERTICAL_LIST));
         recyclerView.setAdapter(adapter);
+
         //设置监听，监听是自己写的
         adapter.setOnItemClickListener(new OnItemClickListener() {
 
@@ -99,7 +100,7 @@ public class TotalFragment extends BaseFragment implements Observer {
                 list.addAll(subjectForPig.getPigList());
                 adapter.notifyDataSetChanged();
 
-                tvCount.setText(list.size() + " 头");
+                tvCount.setText(list.size() + " 头 ");
                 tvSumMoney.setText(getSumMoney(list));
             }
         }
@@ -113,7 +114,7 @@ public class TotalFragment extends BaseFragment implements Observer {
      */
     public String getSumMoney(List<Pig> list) {
         if (list.size() == 0) {
-            return "0";
+            return "共计 " + 0 + " 元";
         }
         float sum = 0.0f;
         for (Pig pig : list) {

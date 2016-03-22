@@ -24,6 +24,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private View content;
     private Market market;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,9 +95,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_sell:
-                if (!"1".equals(btnSell.getTag()))
+                if (!"1".equals(btnSell.getTag())) {
                     startActivity(new Intent(MainActivity.this, SellActivity.class));
-                else
+                    finish();
+                } else
                     Toast.makeText(MainActivity.this, "请设置好单价", Toast.LENGTH_SHORT).show();
                 break;
 
@@ -105,4 +107,5 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
         }
     }
+
 }

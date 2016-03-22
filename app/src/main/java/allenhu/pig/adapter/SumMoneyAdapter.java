@@ -1,6 +1,7 @@
 package allenhu.pig.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.LayoutInflater;
@@ -19,7 +20,7 @@ import allenhu.pig.util.ComparatorPig;
 
 /**
  * 每头猪记录的条目的适配器
- *
+ * <p/>
  * Created by AllenHu on 2016/2/14.
  */
 public class SumMoneyAdapter extends RecyclerView.Adapter<SumMoneyAdapter.MyViewHolder> {
@@ -48,38 +49,48 @@ public class SumMoneyAdapter extends RecyclerView.Adapter<SumMoneyAdapter.MyView
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-        Pig pig = (Pig) mData.get(position);
-        holder.tvCount.setText(pig.getCount() + "");
-        holder.tvPrice.setText(pig.getPrice());
-        if (pig.getWeightUnit() == 0) {
-            holder.tvWeight.setText(pig.getWeight() + " 公斤");
-        } else if (pig.getWeightUnit() == 1) {
-            holder.tvWeight.setText(pig.getWeight() + " 斤");
-        }
-        holder.tvMoney.setText(pig.getMoney() + "");
-        if (onItemClickListener != null) {
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int pos = holder.getLayoutPosition();
-                    onItemClickListener.onItemClick(holder.itemView, pos);
-                }
-            });
+        if (position == 0) {
+            holder.tvCount.setText("");
+            holder.tvPrice.setText("价格");
+            holder.tvPrice.setTextColor(Color.BLACK);
+            holder.tvWeight.setText("重量");
+            holder.tvWeight.setTextColor(Color.BLACK);
+            holder.tvMoney.setText("收入");
+            holder.tvMoney.setTextColor(Color.BLACK);
+        } else {
+            Pig pig = (Pig) mData.get(position - 1);
+            holder.tvCount.setText(pig.getCount() + "");
+            holder.tvPrice.setText(pig.getPrice());
+            if (pig.getWeightUnit() == 0) {
+                holder.tvWeight.setText(pig.getWeight() + " 公斤");
+            } else if (pig.getWeightUnit() == 1) {
+                holder.tvWeight.setText(pig.getWeight() + " 斤");
+            }
+            holder.tvMoney.setText(pig.getMoney() + "");
+            if (onItemClickListener != null) {
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int pos = holder.getLayoutPosition();
+                        onItemClickListener.onItemClick(holder.itemView, pos);
+                    }
+                });
 
-            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    int pos = holder.getLayoutPosition();
-                    onItemClickListener.onItemLongClick(holder.itemView, pos);
-                    return false;
-                }
-            });
+                holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        int pos = holder.getLayoutPosition();
+                        onItemClickListener.onItemLongClick(holder.itemView, pos);
+                        return false;
+                    }
+                });
+            }
         }
     }
 
     @Override
     public int getItemCount() {
-        return mData.size();
+        return mData.size() + 1;
     }
 
     class MyViewHolder extends ViewHolder {

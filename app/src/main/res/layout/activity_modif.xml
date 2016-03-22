@@ -1,12 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="allenhu.pig.activity.ModifActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/teal"
+            app:title="@string/modif_price"
+            app:titleMargins="@dimen/dp_10"
+            app:titleTextColor="@color/whitesmoke" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <EditText
+        android:id="@+id/edt_modif_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/appbar"
+        android:layout_margin="@dimen/dp_20"
+        android:hint="@string/on_price"
+        android:inputType="numberDecimal"
+        android:textSize="@dimen/normal_text" />
+
+    <Button
+        android:id="@+id/btn_modif_sure"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edt_modif_price"
+        android:layout_margin="@dimen/dp_20"
+        android:tag="0"
+        android:text="@string/sure"
+        android:textColor="@color/white"
+        android:textSize="@dimen/big_text" />
+
 
 </RelativeLayout>

@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import allenhu.pig.activity.SellActivity;
 import allenhu.pig.base.BaseActivity;
-import allenhu.pig.bean.Pig;
+import allenhu.pig.bean.Market;
 import allenhu.pig.util.KeyBorderUtil;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
@@ -22,7 +22,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private EditText edtPrice, edtCount;
     private Button btnSell;
     private View content;
-    private Pig pig;
+    private Market market;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private void initView() {
 
-        pig = Pig.getPig();
+        market = Market.getInstance();
 
         content = findViewById(R.id.view_content);
         content.setOnClickListener(this);
@@ -55,11 +55,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     btnSell.setBackgroundResource(R.color.orangered);
                     btnSell.setTag(2);
                     Float price = Float.parseFloat(s.toString());
-                    pig.setPrice(price);
+                    market.setPrice(price);
                 } else {
                     btnSell.setBackgroundColor(getResources().getColor(R.color.gray));
                     btnSell.setTag(1);
-                    pig.setPrice(-1.0f);
+                    market.setPrice(-1.0f);
                 }
             }
 

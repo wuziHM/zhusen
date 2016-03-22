@@ -10,7 +10,6 @@ import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,9 +22,8 @@ import android.widget.TextView;
 import allenhu.pig.R;
 import allenhu.pig.activity.ModifActivity;
 import allenhu.pig.base.BaseFragment;
-import allenhu.pig.bean.Pig;
+import allenhu.pig.bean.Market;
 import allenhu.pig.bean.WeightUnit;
-import allenhu.pig.util.LogUtil;
 
 /**
  * Author：燕青 $ on 2016/3/18  17:47
@@ -71,7 +69,7 @@ public class NowFragment extends BaseFragment implements AdapterView.OnItemSelec
         tvMoney = (TextView) rootView.findViewById(R.id.tv_money);
 
         tvPrice = (TextView) rootView.findViewById(R.id.tv_price);
-        tvPrice.setText(Pig.getPig().getPrice() + " 元/斤");
+        tvPrice.setText(Market.getInstance().getPrice() + " 元/斤");
 
         spinner = (Spinner) rootView.findViewById(R.id.spin_one);
         spinner.setOnItemSelectedListener(this);
@@ -96,13 +94,13 @@ public class NowFragment extends BaseFragment implements AdapterView.OnItemSelec
                 Float weight = Float.parseFloat(s.toString());
                 switch (spinner.getSelectedItemPosition()) {
                     case 0:
-                        tvMoney.setText(1.00f * weight * Pig.getPig().getPrice() * 2 + "");
-                        Pig.getPig().setWeightUnit(WeightUnit.KG);
+                        tvMoney.setText(1.00f * weight * Market.getInstance().getPrice() * 2 + "");
+                        Market.getInstance().setWeightUnit(WeightUnit.KG);
                         break;
 
                     case 1:
-                        tvMoney.setText(1.00f * weight * Pig.getPig().getPrice() + "");
-                        Pig.getPig().setWeightUnit(WeightUnit.JIN);
+                        tvMoney.setText(1.00f * weight * Market.getInstance().getPrice() + "");
+                        Market.getInstance().setWeightUnit(WeightUnit.JIN);
                         break;
                 }
 
@@ -126,14 +124,14 @@ public class NowFragment extends BaseFragment implements AdapterView.OnItemSelec
         switch (position) {
             case 0:
                 weight = Float.valueOf(edtWeight.getText().toString());
-                money = weight * Pig.getPig().getPrice() * 2 * 1.00f;
+                money = weight * Market.getInstance().getPrice() * 2 * 1.00f;
                 tvMoney.setText(money + "");
 
                 break;
 
             case 1:
                 weight = Float.valueOf(edtWeight.getText().toString());
-                money = weight * Pig.getPig().getPrice() * 1.00f;
+                money = weight * Market.getInstance().getPrice() * 1.00f;
                 tvMoney.setText(money + "");
                 break;
         }
@@ -144,19 +142,17 @@ public class NowFragment extends BaseFragment implements AdapterView.OnItemSelec
 
     }
 
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-    }
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_modif:
-                goActivity(new Intent(activity, ModifActivity.class),1);
+                goActivity(new Intent(activity, ModifActivity.class), 1);
                 break;
         }
+    }
+
+
+    public void setPrice() {
+        tvPrice.setText(Market.getInstance().getPrice() + "");
     }
 }

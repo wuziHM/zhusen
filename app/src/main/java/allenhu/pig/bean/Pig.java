@@ -1,5 +1,6 @@
 package allenhu.pig.bean;
 
+import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -15,7 +16,7 @@ import allenhu.pig.bean.db.PigsRecord;
  * use to...
  */
 @DatabaseTable(tableName = "tb_pig")
-public class Pig implements Serializable{
+public class Pig implements Serializable {
 
     @DatabaseField(generatedId = true, columnName = "_id")
     private int id;
@@ -34,11 +35,11 @@ public class Pig implements Serializable{
     @DatabaseField(columnName = "_weight")
     private float weight;
 
-    @DatabaseField(columnName = "_money")
+    @DatabaseField(columnName = "_money", dataType = DataType.FLOAT)
     private float money;
 
     @DatabaseField(columnName = "_sellDate")
-    private Date sellDate;
+    private String sellDate;
 
     @DatabaseField(canBeNull = true, foreign = true, columnName = "_record", foreignAutoRefresh = true)
     private PigsRecord record;
@@ -86,11 +87,11 @@ public class Pig implements Serializable{
         this.money = money;
     }
 
-    public Date getSellDate() {
+    public String getSellDate() {
         return sellDate;
     }
 
-    public void setSellDate(Date sellDate) {
+    public void setSellDate(String sellDate) {
         this.sellDate = sellDate;
     }
 
@@ -108,5 +109,12 @@ public class Pig implements Serializable{
 
     public void setPrice(String price) {
         this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        String unit = weightUnit == 0 ? "公斤" : "斤";
+        String s = "重量单位:" + unit + "   重量:" + weight + "    价格:" + price + "   价值:" + money;
+        return s;
     }
 }

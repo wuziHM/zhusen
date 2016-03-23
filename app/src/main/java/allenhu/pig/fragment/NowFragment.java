@@ -33,6 +33,8 @@ import allenhu.pig.base.BaseFragment;
 import allenhu.pig.bean.Market;
 import allenhu.pig.bean.Pig;
 import allenhu.pig.bean.WeightUnit;
+import allenhu.pig.db.PigDao;
+import allenhu.pig.util.DateUtile;
 import allenhu.pig.util.DecimalUtil;
 import allenhu.pig.util.LogUtil;
 import allenhu.pig.util.ToastUtil;
@@ -54,6 +56,7 @@ public class NowFragment extends BaseFragment implements AdapterView.OnItemSelec
     private int count = 1;
     private List<Pig> pigs = new ArrayList<>();
     private String price;
+    private SellActivity sellActivity;
 
     @Nullable
     @Override
@@ -70,6 +73,7 @@ public class NowFragment extends BaseFragment implements AdapterView.OnItemSelec
 
     private void initView() {
 
+        sellActivity = (SellActivity) getActivity();
         price = Market.getInstance().getPrice();
 
         tvCount = (TextView) rootView.findViewById(R.id.tv_count);
@@ -181,7 +185,6 @@ public class NowFragment extends BaseFragment implements AdapterView.OnItemSelec
             case 0:
                 weight = Float.parseFloat(edtWeight.getText().toString());
                 tvMoney.setText(DecimalUtil.formatFloat(weight * Float.parseFloat(p) * 2));
-
                 break;
 
             case 1:
@@ -209,16 +212,23 @@ public class NowFragment extends BaseFragment implements AdapterView.OnItemSelec
                     break;
                 }
                 Pig pig = new Pig();
+//                pig.setMoney(1731.83f);
                 pig.setMoney(Float.parseFloat(tvMoney.getText().toString()));
+                LogUtil.e("money:" + Float.parseFloat(tvMoney.getText().toString()));
+
                 pig.setWeight(Float.parseFloat(edtWeight.getText().toString()));
+                LogUtil.e("weight:" + Float.parseFloat(edtWeight.getText().toString()));
+
                 pig.setWeightUnit(spinner.getSelectedItemPosition());
-                pig.setSellDate(new Date());
+                pig.setSellDate(DateUtile.getDate(new Date()));
                 pig.setCount(count);
                 pig.setPrice(Market.getInstance().getPrice() + "");
-                pig.setRecord(((SellActivity) getActivity()).getRecord());
+                pig.setRecord(sellActivity.getRecord());
                 pigs.add(pig);
+                PigDao pigDao = new PigDao(sellActivity);
+                pigDao.addPig(pig);
                 initData();
-                ((SellActivity) getActivity()).setChanged(pigs);
+                sellActivity.setChanged(pigs);
                 break;
         }
     }

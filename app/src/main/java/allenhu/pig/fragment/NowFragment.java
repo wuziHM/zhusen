@@ -215,6 +215,7 @@ public class NowFragment extends BaseFragment implements AdapterView.OnItemSelec
                 pig.setSellDate(new Date());
                 pig.setCount(count);
                 pig.setPrice(Market.getInstance().getPrice() + "");
+                pig.setRecord(((SellActivity) getActivity()).getRecord());
                 pigs.add(pig);
                 initData();
                 ((SellActivity) getActivity()).setChanged(pigs);

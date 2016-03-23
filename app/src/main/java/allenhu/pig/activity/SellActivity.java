@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import allenhu.pig.base.BaseActivity;
 import allenhu.pig.base.BaseFragment;
 import allenhu.pig.bean.Pig;
 import allenhu.pig.bean.SubjectForPig;
+import allenhu.pig.bean.db.PigsRecord;
 import allenhu.pig.fragment.NowFragment;
 import allenhu.pig.fragment.TotalFragment;
 import allenhu.pig.util.LogUtil;
@@ -40,6 +42,7 @@ public class SellActivity extends BaseActivity {
 
     // 定义一个变量，来标识是否退出
     private static boolean isExit = false;
+    private PigsRecord record;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +53,17 @@ public class SellActivity extends BaseActivity {
 
     private void initView() {
 
+
+        Intent intent = getIntent();
+        // 获取该Intent所携带的数据
+        if (intent != null) {
+            Bundle bundle = intent.getExtras();
+            if (bundle != null) {
+                // 从bundle数据包中取出数据
+                record = (PigsRecord) bundle.getSerializable("data");
+            }
+        }
+//        record = (PigsRecord) getIntent().getExtras().getSerializable("data");
 
         mViewPager = (ViewPager) findViewById(R.id.vp_view);
         mTabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -97,7 +111,6 @@ public class SellActivity extends BaseActivity {
     }
 
 
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -129,4 +142,8 @@ public class SellActivity extends BaseActivity {
             isExit = false;
         }
     };
+
+    public PigsRecord getRecord() {
+        return record;
+    }
 }

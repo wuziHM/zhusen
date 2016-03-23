@@ -3,6 +3,7 @@ package allenhu.pig.bean;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import allenhu.pig.bean.db.PigsRecord;
@@ -14,7 +15,7 @@ import allenhu.pig.bean.db.PigsRecord;
  * use to...
  */
 @DatabaseTable(tableName = "tb_pig")
-public class Pig {
+public class Pig implements Serializable{
 
     @DatabaseField(generatedId = true, columnName = "_id")
     private int id;
@@ -39,7 +40,7 @@ public class Pig {
     @DatabaseField(columnName = "_sellDate")
     private Date sellDate;
 
-    @DatabaseField(columnName = "_record")
+    @DatabaseField(canBeNull = true, foreign = true, columnName = "_record", foreignAutoRefresh = true)
     private PigsRecord record;
 
     public Pig() {

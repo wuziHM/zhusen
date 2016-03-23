@@ -3,6 +3,8 @@ package allenhu.pig.bean.db;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.io.Serializable;
+
 /**
  * Author：燕青 $ on 2016/3/23  9:49
  * E-mail：359222347@qq.com
@@ -11,7 +13,7 @@ import com.j256.ormlite.table.DatabaseTable;
  */
 
 @DatabaseTable(tableName = "tb_pigs_record")
-public class PigsRecord {
+public class PigsRecord implements Serializable {
 
     @DatabaseField(generatedId = true, canBeNull = false, columnName = "_id")
     private int id;

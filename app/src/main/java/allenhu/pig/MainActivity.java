@@ -1,6 +1,7 @@
 package allenhu.pig;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -12,9 +13,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.Date;
+
 import allenhu.pig.activity.SellActivity;
 import allenhu.pig.base.BaseActivity;
 import allenhu.pig.bean.Market;
+import allenhu.pig.bean.db.PigsRecord;
+import allenhu.pig.db.PigsRecordDao;
+import allenhu.pig.util.Constant;
+import allenhu.pig.util.DateUtile;
 import allenhu.pig.util.DecimalUtil;
 import allenhu.pig.util.KeyBorderUtil;
 import allenhu.pig.util.ToastUtil;
@@ -96,7 +103,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.btn_sell:
                 if (DecimalUtil.isRightFloat(edtPrice.getText().toString())) {
-                    startActivity(new Intent(MainActivity.this, SellActivity.class));
+                    PigsRecord record = addRecord();
+                    Intent intent = new Intent(MainActivity.this, SellActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("data", record);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
                     market.setPrice(DecimalUtil.formatFloat(Float.parseFloat(edtPrice.getText().toString())));
                     finish();
                 } else
@@ -107,6 +119,22 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 KeyBorderUtil.hideKeyBorder(content, MainActivity.this);
                 break;
         }
+    }
+
+    /**
+     * 创建一条添加的记录
+     */
+    private PigsRecord addRecord() {
+        PigsRecordDao dao = new PigsRecordDao(MainActivity.this);
+        PigsRecord record = new PigsRecord();
+        record.setCount(0);
+        record.setDate(DateUtile.getDate(new Date()));
+        record.setIncome(0);
+        record.setPirce(0);
+        record.setUser(Constant.USER);
+        record.setWeight(0);
+        dao.addRecord(record);
+        return record;
     }
 
 }

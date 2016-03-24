@@ -33,10 +33,10 @@ public class Pig implements Serializable {
     private String price;
 
     @DatabaseField(columnName = "_weight")
-    private float weight;
+    private double weight;
 
-    @DatabaseField(columnName = "_money", dataType = DataType.FLOAT)
-    private float money;
+    @DatabaseField(columnName = "_money")
+    private double money;
 
     @DatabaseField(columnName = "_sellDate")
     private String sellDate;
@@ -71,19 +71,19 @@ public class Pig implements Serializable {
         this.weightUnit = weightUnit;
     }
 
-    public float getWeight() {
+    public double getWeight() {
         return weight;
     }
 
-    public void setWeight(float weight) {
+    public void setWeight(double weight) {
         this.weight = weight;
     }
 
-    public float getMoney() {
+    public double getMoney() {
         return money;
     }
 
-    public void setMoney(float money) {
+    public void setMoney(double money) {
         this.money = money;
     }
 

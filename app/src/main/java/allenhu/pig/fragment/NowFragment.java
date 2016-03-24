@@ -213,10 +213,10 @@ public class NowFragment extends BaseFragment implements AdapterView.OnItemSelec
                 }
                 Pig pig = new Pig();
 //                pig.setMoney(1731.83f);
-                pig.setMoney(Float.parseFloat(tvMoney.getText().toString()));
-                LogUtil.e("money:" + Float.parseFloat(tvMoney.getText().toString()));
+                pig.setMoney(Double.parseDouble(tvMoney.getText().toString()));
+                LogUtil.e("money:" + Double.parseDouble(tvMoney.getText().toString()));
 
-                pig.setWeight(Float.parseFloat(edtWeight.getText().toString()));
+                pig.setWeight(Double.parseDouble(edtWeight.getText().toString()));
                 LogUtil.e("weight:" + Float.parseFloat(edtWeight.getText().toString()));
 
                 pig.setWeightUnit(spinner.getSelectedItemPosition());

@@ -22,6 +22,7 @@ import allenhu.pig.base.BaseFragment;
 import allenhu.pig.bean.Pig;
 import allenhu.pig.bean.SubjectForPig;
 import allenhu.pig.listener.OnItemClickListener;
+import allenhu.pig.util.ArithUtil;
 import allenhu.pig.util.LogUtil;
 
 /**
@@ -116,11 +117,11 @@ public class TotalFragment extends BaseFragment implements Observer {
         if (list.size() == 0) {
             return "共计 " + 0 + " 元";
         }
-        float sum = 0.0f;
+        double sum = 0;
         for (Pig pig : list) {
-            sum += pig.getMoney();
+            sum = ArithUtil.add(sum, pig.getMoney());
+            LogUtil.e("价值:" + pig.getMoney() + "   sum:" + sum);
         }
-
         return "共计 " + sum + " 元";
     }
 }

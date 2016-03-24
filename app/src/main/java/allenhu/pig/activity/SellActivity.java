@@ -22,8 +22,11 @@ import allenhu.pig.base.BaseFragment;
 import allenhu.pig.bean.Pig;
 import allenhu.pig.bean.SubjectForPig;
 import allenhu.pig.bean.db.PigsRecord;
+import allenhu.pig.db.PigsRecordDao;
 import allenhu.pig.fragment.NowFragment;
 import allenhu.pig.fragment.TotalFragment;
+import allenhu.pig.util.AppUtil;
+import allenhu.pig.util.ArithUtil;
 import allenhu.pig.util.LogUtil;
 
 /**
@@ -43,6 +46,7 @@ public class SellActivity extends BaseActivity {
     // 定义一个变量，来标识是否退出
     private static boolean isExit = false;
     private PigsRecord record;
+    private PigsRecordDao recordDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,8 +110,31 @@ public class SellActivity extends BaseActivity {
         view1.setPrice();
     }
 
+    /**
+     * 在nowFragment页面中添加了猪头，然后就需要在TotalFragment中进行对应的更新，
+     *
+     * 同时也对数据库进行更新
+     *
+     * @param pigs
+     */
     public void setChanged(List<Pig> pigs) {
-        pig.setPigList(pigs);
+        if (AppUtil.isAvailable(pigs)) {
+            pig.setPigList(pigs);
+            if (AppUtil.isAvailable(record)) {
+                double weight = 0;
+                double income = 0;
+                for (Pig pig : pigs) {
+                    weight = pig.getWeightUnit() == 0 ? ArithUtil.add(weight, pig.getWeight() * 2) : ArithUtil.add(weight, pig.getWeight());
+                    income = ArithUtil.add(pig.getMoney(), income);
+                }
+                record.setIncome(income);
+                record.setWeight(weight);
+                if (!AppUtil.isAvailable(recordDao)) {
+                    recordDao = new PigsRecordDao(SellActivity.this);
+                }
+                recordDao.updateRecord(record);
+            }
+        }
     }
 
 

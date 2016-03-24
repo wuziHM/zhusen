@@ -77,8 +77,6 @@ public class NowFragment extends BaseFragment implements AdapterView.OnItemSelec
         price = Market.getInstance().getPrice();
 
         tvCount = (TextView) rootView.findViewById(R.id.tv_count);
-//        SpannableStringBuilder builder = setColor();
-//        tvCount.setText(builder);
         setColor();
 
         tvMoney = (TextView) rootView.findViewById(R.id.tv_money);

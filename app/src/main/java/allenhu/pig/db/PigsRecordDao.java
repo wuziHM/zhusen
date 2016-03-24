@@ -52,4 +52,16 @@ public class PigsRecordDao {
             e.printStackTrace();
         }
     }
+
+    /**
+     * 更新记录
+     * @param record
+     */
+    public void updateRecord(PigsRecord record){
+        try {
+            dao.update(record);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

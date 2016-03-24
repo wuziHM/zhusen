@@ -22,13 +22,13 @@ public class PigsRecord implements Serializable {
     private int count;
 
     @DatabaseField(columnName = "_weight", canBeNull = false)
-    private float weight;
+    private double weight;
 
     @DatabaseField(columnName = "_price", canBeNull = false)
-    private float pirce;
+    private double pirce;
 
     @DatabaseField(columnName = "_income", canBeNull = false)
-    private float income;
+    private double income;
 
     @DatabaseField(canBeNull = true, foreign = true, columnName = "user_id", foreignAutoRefresh = true)
     private User user;
@@ -55,27 +55,27 @@ public class PigsRecord implements Serializable {
         this.count = count;
     }
 
-    public float getWeight() {
+    public double getWeight() {
         return weight;
     }
 
-    public void setWeight(float weight) {
+    public void setWeight(double weight) {
         this.weight = weight;
     }
 
-    public float getPirce() {
+    public double getPirce() {
         return pirce;
     }
 
-    public void setPirce(float pirce) {
+    public void setPirce(double pirce) {
         this.pirce = pirce;
     }
 
-    public float getIncome() {
+    public double getIncome() {
         return income;
     }
 
-    public void setIncome(float income) {
+    public void setIncome(double income) {
         this.income = income;
     }
 

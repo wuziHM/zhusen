@@ -5,6 +5,8 @@ import com.j256.ormlite.table.DatabaseTable;
 
 import java.io.Serializable;
 
+import allenhu.pig.util.DateUtil;
+
 /**
  * Author：燕青 $ on 2016/3/23  9:49
  * E-mail：359222347@qq.com
@@ -34,7 +36,7 @@ public class PigsRecord implements Serializable {
     private User user;
 
     @DatabaseField(columnName = "_date", canBeNull = false)
-    private String date;
+    private long date;
 
     public PigsRecord() {
     }
@@ -87,11 +89,16 @@ public class PigsRecord implements Serializable {
         this.user = user;
     }
 
-    public String getDate() {
+    public long getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(long date) {
         this.date = date;
+    }
+
+    @Override
+    public String toString() {
+        return "头数:" + count + "   总重量:" + weight + "   总价钱:" + income + "    日期:" + DateUtil.getDate(date);
     }
 }

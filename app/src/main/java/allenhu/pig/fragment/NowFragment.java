@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
@@ -34,9 +33,8 @@ import allenhu.pig.bean.Market;
 import allenhu.pig.bean.Pig;
 import allenhu.pig.bean.WeightUnit;
 import allenhu.pig.db.PigDao;
-import allenhu.pig.util.DateUtile;
+import allenhu.pig.util.DateUtil;
 import allenhu.pig.util.DecimalUtil;
-import allenhu.pig.util.LogUtil;
 import allenhu.pig.util.ToastUtil;
 
 /**
@@ -212,13 +210,11 @@ public class NowFragment extends BaseFragment implements AdapterView.OnItemSelec
                 Pig pig = new Pig();
 //                pig.setMoney(1731.83f);
                 pig.setMoney(Double.parseDouble(tvMoney.getText().toString()));
-                LogUtil.e("money:" + Double.parseDouble(tvMoney.getText().toString()));
 
                 pig.setWeight(Double.parseDouble(edtWeight.getText().toString()));
-                LogUtil.e("weight:" + Float.parseFloat(edtWeight.getText().toString()));
 
                 pig.setWeightUnit(spinner.getSelectedItemPosition());
-                pig.setSellDate(DateUtile.getDate(new Date()));
+                pig.setSellDate(DateUtil.getDate(new Date()));
                 pig.setCount(count);
                 pig.setPrice(Market.getInstance().getPrice() + "");
                 pig.setRecord(sellActivity.getRecord());

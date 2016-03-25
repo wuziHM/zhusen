@@ -1,7 +1,6 @@
 package allenhu.pig;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -13,18 +12,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.util.Date;
-
+import allenhu.pig.activity.HistoryActivity;
 import allenhu.pig.activity.SellActivity;
 import allenhu.pig.base.BaseActivity;
 import allenhu.pig.bean.Market;
 import allenhu.pig.bean.db.PigsRecord;
 import allenhu.pig.db.PigsRecordDao;
 import allenhu.pig.util.Constant;
-import allenhu.pig.util.DateUtile;
+import allenhu.pig.util.DateUtil;
 import allenhu.pig.util.DecimalUtil;
 import allenhu.pig.util.KeyBorderUtil;
-import allenhu.pig.util.ToastUtil;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
@@ -91,11 +88,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id) {
+            case R.id.action_history:
+                goActivity(MainActivity.this, new Intent(MainActivity.this, HistoryActivity.class));
+                break;
+
+            default:
+
+                break;
         }
 
-        return super.onOptionsItemSelected(item);
+
+        return true;
     }
 
     @Override
@@ -128,7 +132,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         PigsRecordDao dao = new PigsRecordDao(MainActivity.this);
         PigsRecord record = new PigsRecord();
         record.setCount(0);
-        record.setDate(DateUtile.getDate(new Date()));
+        record.setDate(DateUtil.getDate());
         record.setIncome(0);
         record.setPirce(0);
         record.setUser(Constant.USER);

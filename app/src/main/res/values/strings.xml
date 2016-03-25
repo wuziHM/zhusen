@@ -11,4 +11,9 @@
 
     <string name="kg">公斤</string>
     <string name="jin">斤</string>
+
+
+    <string name="three_month">近3个月</string>
+    <string name="six_month">近半年</string>
+    <string name="all">全部</string>
 </resources>

@@ -8,7 +8,6 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -19,9 +18,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".activity.SellActivity" />
-        <activity android:name=".activity.ModifActivity"></activity>
+        <activity android:name=".activity.ModifActivity" />
+        <activity android:name=".activity.HistoryActivity" />
+        <activity android:name=".activity.HistroyDetailActivity"></activity>
     </application>
 
 </manifest>

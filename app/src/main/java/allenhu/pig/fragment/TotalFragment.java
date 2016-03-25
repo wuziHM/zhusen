@@ -23,7 +23,6 @@ import allenhu.pig.bean.Pig;
 import allenhu.pig.bean.SubjectForPig;
 import allenhu.pig.listener.OnItemClickListener;
 import allenhu.pig.util.ArithUtil;
-import allenhu.pig.util.LogUtil;
 
 /**
  * Author：燕青 $ on 2016/3/18  17:47
@@ -120,7 +119,6 @@ public class TotalFragment extends BaseFragment implements Observer {
         double sum = 0;
         for (Pig pig : list) {
             sum = ArithUtil.add(sum, pig.getMoney());
-            LogUtil.e("价值:" + pig.getMoney() + "   sum:" + sum);
         }
         return "共计 " + sum + " 元";
     }

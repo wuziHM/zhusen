@@ -112,7 +112,7 @@ public class SellActivity extends BaseActivity {
 
     /**
      * 在nowFragment页面中添加了猪头，然后就需要在TotalFragment中进行对应的更新，
-     *
+     * <p/>
      * 同时也对数据库进行更新
      *
      * @param pigs
@@ -129,6 +129,7 @@ public class SellActivity extends BaseActivity {
                 }
                 record.setIncome(income);
                 record.setWeight(weight);
+                record.setCount(pigs.size());
                 if (!AppUtil.isAvailable(recordDao)) {
                     recordDao = new PigsRecordDao(SellActivity.this);
                 }

@@ -27,33 +27,33 @@ public class LogUtil {
     /**
      * 佛祖显灵
      */
-    public static void showBuddha() {
-        if (isShowBuddha) {
-            return;
-        }
-        isShowBuddha = true;
-        Log.i(TAG, "                            _ooOoo_");
-        Log.i(TAG, "                           o8888888o");
-        Log.i(TAG, "                          88\" . \"88");
-        Log.i(TAG, "                           (| -_- |)");
-        Log.i(TAG, "                            O\\ = /O");
-        Log.i(TAG, "                        ____/`---'\\____");
-        Log.i(TAG, "                      .   ' \\| |// `.");
-        Log.i(TAG, "                       / \\\\||| : |||// \\");
-        Log.i(TAG, "                     / _||||| -:- |||||- \\");
-        Log.i(TAG, "                       | | \\\\\\ - /// | |");
-        Log.i(TAG, "                     | \\_| ''\\---/'' | |");
-        Log.i(TAG, "                      \\ .-\\__ `-` ___/-. /");
-        Log.i(TAG, "                   ___`. .' /--.--\\ `. . __");
-        Log.i(TAG, "                .\"\" '< `.___\\_<|>_/___.' >'\"\".");
-        Log.i(TAG, "               | | : `- \\`.;`\\ _ /`;.`/ - ` : | |");
-        Log.i(TAG, "                 \\ \\ `-. \\_ __\\ /__ _/ .-` / /");
-        Log.i(TAG, "         ======`-.____`-.___\\_____/___.-`____.-'======");
-        Log.i(TAG, "                            `=---='");
-        Log.i(TAG, "         .............................................");
-        Log.i(TAG, "         				信佛祖，无bug");
-        Log.i(TAG, "         				del bug ...");
-    }
+//    public static void showBuddha() {
+//        if (isShowBuddha) {
+//            return;
+//        }
+//        isShowBuddha = true;
+//        Log.i(TAG, "                            _ooOoo_");
+//        Log.i(TAG, "                           o8888888o");
+//        Log.i(TAG, "                          88\" . \"88");
+//        Log.i(TAG, "                           (| -_- |)");
+//        Log.i(TAG, "                            O\\ = /O");
+//        Log.i(TAG, "                        ____/`---'\\____");
+//        Log.i(TAG, "                      .   ' \\| |// `.");
+//        Log.i(TAG, "                       / \\\\||| : |||// \\");
+//        Log.i(TAG, "                     / _||||| -:- |||||- \\");
+//        Log.i(TAG, "                       | | \\\\\\ - /// | |");
+//        Log.i(TAG, "                     | \\_| ''\\---/'' | |");
+//        Log.i(TAG, "                      \\ .-\\__ `-` ___/-. /");
+//        Log.i(TAG, "                   ___`. .' /--.--\\ `. . __");
+//        Log.i(TAG, "                .\"\" '< `.___\\_<|>_/___.' >'\"\".");
+//        Log.i(TAG, "               | | : `- \\`.;`\\ _ /`;.`/ - ` : | |");
+//        Log.i(TAG, "                 \\ \\ `-. \\_ __\\ /__ _/ .-` / /");
+//        Log.i(TAG, "         ======`-.____`-.___\\_____/___.-`____.-'======");
+//        Log.i(TAG, "                            `=---='");
+//        Log.i(TAG, "         .............................................");
+//        Log.i(TAG, "         				信佛祖，无bug");
+//        Log.i(TAG, "         				del bug ...");
+//    }
 
     /**
      * 打印log.i日志
@@ -62,11 +62,20 @@ public class LogUtil {
      * @param msg
      */
     public static void i(String tag, String msg) {
-        showBuddha();
+        if (isDebug) {
+            Log.i(tag, msg);
+        }
+    }
+
+    /**
+     * 打印log.i日志
+     *
+     * @param msg
+     */
+    public static void i(String msg) {
 
         if (isDebug) {
-//            Log.i(tag, msg);
-            println(tag, msg);
+            LogUtil.i(TAG, msg);
         }
     }
 

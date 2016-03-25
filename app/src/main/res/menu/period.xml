@@ -5,22 +5,20 @@
     tools:context=".MainActivity">
 
     <item
-        android:id="@+id/action_history"
-        android:icon="@mipmap/iv_lol_icon3"
+        android:id="@+id/action_three"
         android:orderInCategory="80"
-        android:title="卖猪历史"
+        android:icon="@mipmap/iv_lol_icon1"
+        android:title="@string/three_month"
         app:showAsAction="never" />
-
     <item
-        android:id="@+id/action_share"
-        android:icon="@mipmap/iv_lol_icon2"
+        android:id="@+id/action_six"
         android:orderInCategory="90"
-        android:title="分享"
+        android:title="@string/six_month"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_all"
+        android:orderInCategory="100"
+        android:title="@string/all"
         app:showAsAction="never" />
 
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="设置"
-        app:showAsAction="never" />
 </menu>

@@ -5,6 +5,7 @@ import android.content.Context;
 import com.j256.ormlite.dao.Dao;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import allenhu.pig.bean.db.PigsRecord;
 
@@ -64,4 +65,19 @@ public class PigsRecordDao {
             e.printStackTrace();
         }
     }
+
+    /**
+     * 获取所有的记录
+     */
+    public List<PigsRecord> getAllRecord(){
+        List<PigsRecord> pigsRecords = null;
+        try {
+//            pigsRecords = dao.queryForAll();
+            pigsRecords = dao.queryBuilder().where().ne("_weight",0).query();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return pigsRecords;
+    }
+
 }

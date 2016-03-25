@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -47,9 +48,7 @@ public class HistoryActivity extends BaseActivity implements View.OnClickListene
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-        ivBack = (ImageView) findViewById(R.id.iv_back);
-        ivBack.setOnClickListener(this);
+        ((TextView)findViewById(R.id.tv_title)).setText("卖猪记录");
 
         recycler = (RecyclerView) findViewById(R.id.recycle);
         recycler.setLayoutManager(new LinearLayoutManager(this));
@@ -60,11 +59,10 @@ public class HistoryActivity extends BaseActivity implements View.OnClickListene
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                PigsRecord r = (PigsRecord) records.get(position);
-                r.getId();
-                Intent intent = new Intent(HistoryActivity.this,HistroyDetailActivity.class);
-
-                goActivity(HistoryActivity.this,intent);
+                PigsRecord r = (PigsRecord) records.get(position - 1);
+                Intent intent = new Intent(HistoryActivity.this, HistoryDetailActivity.class);
+                intent.putExtra("data", r.getId());
+                goActivity(HistoryActivity.this, intent);
             }
 
             @Override
@@ -103,9 +101,8 @@ public class HistoryActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.iv_back:
-                finish();
-                break;
         }
     }
+
+
 }

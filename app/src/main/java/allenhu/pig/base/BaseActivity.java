@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 /**
  * Created by AllenHu on 2016/2/15.
@@ -45,5 +46,9 @@ public class BaseActivity extends AppCompatActivity {
         if (intent != null) {
             goActivity(context,intent,-1);
         }
+    }
+
+    public void back(View view){
+        this.finish();
     }
 }

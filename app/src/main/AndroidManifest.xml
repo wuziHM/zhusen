@@ -21,7 +21,7 @@
         <activity android:name=".activity.SellActivity" />
         <activity android:name=".activity.ModifActivity" />
         <activity android:name=".activity.HistoryActivity" />
-        <activity android:name=".activity.HistroyDetailActivity"></activity>
+        <activity android:name=".activity.HistoryDetailActivity"></activity>
     </application>
 
 </manifest>

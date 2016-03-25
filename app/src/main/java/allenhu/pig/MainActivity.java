@@ -2,9 +2,12 @@ package allenhu.pig;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,6 +32,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private Button btnSell;
     private View content;
     private Market market;
+
+    // 定义一个变量，来标识是否退出
+    private static boolean isExit = false;
 
 
     @Override
@@ -114,7 +120,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     intent.putExtras(bundle);
                     startActivity(intent);
                     market.setPrice(DecimalUtil.formatFloat(Float.parseFloat(edtPrice.getText().toString())));
-                    finish();
+//                    finish();
                 } else
                     Toast.makeText(MainActivity.this, "请设置好单价", Toast.LENGTH_SHORT).show();
                 break;
@@ -141,4 +147,37 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         return record;
     }
 
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            exit();
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    private void exit() {
+        if (!isExit) {
+            isExit = true;
+            Toast.makeText(getApplicationContext(), "再按一次退出程序",
+                    Toast.LENGTH_SHORT).show();
+            // 利用handler延迟发送更改状态信息
+            mHandler.sendEmptyMessageDelayed(0, 2000);
+        } else {
+            finish();
+            System.exit(0);
+        }
+    }
+
+
+    Handler mHandler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            isExit = false;
+        }
+    };
 }

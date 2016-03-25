@@ -67,4 +67,18 @@ public class PigDao {
         }
         return pigs;
     }
+
+    /**
+     * 查询某次卖猪的记录
+     * @param id
+     * @return
+     */
+    public List<Pig> getPigByRecordId(int id){
+        try {
+           return pigDaoOpe.queryBuilder().where().eq("_record",id).query();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

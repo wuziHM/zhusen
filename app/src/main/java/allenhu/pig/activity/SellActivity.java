@@ -2,15 +2,9 @@ package allenhu.pig.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +35,7 @@ public class SellActivity extends BaseActivity {
     private NowFragment view1;
     private TotalFragment view2;
     private List<BaseFragment> mViewList = new ArrayList<>();
-    private SubjectForPig pig;
+    private SubjectForPig subjectPig;
 
     private PigsRecord record;
     private PigsRecordDao recordDao;
@@ -79,8 +73,8 @@ public class SellActivity extends BaseActivity {
          *
          * 当NowFragment中发生变化的时候通知TotalFragment进行数据更新
          */
-        pig = new SubjectForPig();
-        view2.registerSubject(pig);
+        subjectPig = new SubjectForPig();
+        view2.registerSubject(subjectPig);
 
         mViewList.add(view1);
         mViewList.add(view2);
@@ -117,7 +111,7 @@ public class SellActivity extends BaseActivity {
      */
     public void setChanged(List<Pig> pigs) {
         if (AppUtil.isAvailable(pigs)) {
-            pig.setPigList(pigs);
+            subjectPig.setPigList(pigs);
             if (AppUtil.isAvailable(record)) {
                 double weight = 0;
                 double income = 0;

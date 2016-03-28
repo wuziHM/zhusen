@@ -56,9 +56,10 @@ public class PigsRecordDao {
 
     /**
      * 更新记录
+     *
      * @param record
      */
-    public void updateRecord(PigsRecord record){
+    public void updateRecord(PigsRecord record) {
         try {
             dao.update(record);
         } catch (SQLException e) {
@@ -69,15 +70,29 @@ public class PigsRecordDao {
     /**
      * 获取所有的记录
      */
-    public List<PigsRecord> getAllRecord(){
+    public List<PigsRecord> getAllRecord() {
         List<PigsRecord> pigsRecords = null;
         try {
 //            pigsRecords = dao.queryForAll();
-            pigsRecords = dao.queryBuilder().where().ne("_weight",0).query();
+            pigsRecords = dao.queryBuilder().where().ne("_weight", 0).query();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return pigsRecords;
     }
 
+    /**
+     * 根据id进行查询
+     *
+     * @param id
+     * @return
+     */
+    public PigsRecord getRecordById(int id) {
+        try {
+            return dao.queryForId(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

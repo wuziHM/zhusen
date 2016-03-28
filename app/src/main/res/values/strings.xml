@@ -16,4 +16,10 @@
     <string name="three_month">近3个月</string>
     <string name="six_month">近半年</string>
     <string name="all">全部</string>
+
+    <string name="title_alert">提示信息</string>
+    <string name="ok">确定</string>
+    <string name="edit">修改</string>
+
+
 </resources>

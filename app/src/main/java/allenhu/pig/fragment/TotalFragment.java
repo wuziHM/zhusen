@@ -1,5 +1,8 @@
 package allenhu.pig.fragment;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,8 +10,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,13 +20,18 @@ import java.util.Observable;
 import java.util.Observer;
 
 import allenhu.pig.R;
+import allenhu.pig.activity.SellActivity;
 import allenhu.pig.adapter.DividerItemDecoration;
 import allenhu.pig.adapter.SumMoneyAdapter;
 import allenhu.pig.base.BaseFragment;
 import allenhu.pig.bean.Pig;
 import allenhu.pig.bean.SubjectForPig;
+import allenhu.pig.bean.db.PigsRecord;
+import allenhu.pig.db.PigDao;
 import allenhu.pig.listener.OnItemClickListener;
+import allenhu.pig.util.AppUtil;
 import allenhu.pig.util.ArithUtil;
+import allenhu.pig.util.DecimalUtil;
 
 /**
  * Author：燕青 $ on 2016/3/18  17:47
@@ -75,9 +84,66 @@ public class TotalFragment extends BaseFragment implements Observer {
 
             @Override
             public void onItemLongClick(View view, int position) {
-
+//                CustomDialog.Builder builder = new CustomDialog.Builder(activity);
+//                builder.setMessage("这个就是自定义的提示框");
+//                builder.setTitle("提示");
+//                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        dialog.dismiss();
+//                        //设置你的操作事项
+//                    }
+//                });
+//
+//                builder.setNegativeButton("编辑",
+//                        new android.content.DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                dialog.dismiss();
+//                            }
+//                        });
+//
+//                builder.create().show()
+                showDialog(position);
             }
         });
+    }
+
+    private void showDialog(final int position) {
+        Dialog dialog = new AlertDialog.Builder(activity).setTitle("删除数据").setMessage(
+                "您要删除这条数据吗").setPositiveButton("取消",
+                new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // TODO Auto-generated method stub
+                        dialog.dismiss();
+                    }
+                }).setNegativeButton("删除", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // TODO Auto-generated method stub
+                doDelete(position);
+            }
+        }).create();
+        dialog.show();
+    }
+
+    private void showModifDialog(int position) {
+
+        View view = activity.getLayoutInflater().inflate(R.layout.layout_modif_pig, null);
+        EditText edtPrice = (EditText) view.findViewById(R.id.edt_price);
+        EditText edtWeight = (EditText) view.findViewById(R.id.edt_weight);
+        edtPrice.setHint(list.get(position - 1).getPrice());
+        edtWeight.setHint(DecimalUtil.formatFloat(list.get(position - 1).getWeight()) + "");
+        Dialog dialog = new AlertDialog.Builder(activity).setView(view).create();
+        dialog.show();
+
+    }
+
+    private void doDelete(int position) {
+        list.remove(position - 1);
+        adapter.notifyDataSetChanged();
+        new PigDao(activity).deletePig(list.get(position - 1));
     }
 
 
@@ -94,10 +160,12 @@ public class TotalFragment extends BaseFragment implements Observer {
     @Override
     public void update(Observable observable, Object data) {
         if (observable instanceof SubjectForPig) {
-            SubjectForPig subjectForPig = (SubjectForPig) observable;
-            if (subjectForPig.getPigList() != null) {
+            PigsRecord record = ((SellActivity) getActivity()).getRecord();
+            PigDao dao = new PigDao(activity);
+            List<Pig> list1 = dao.getPigByRecordId(record.getId());
+            if (AppUtil.isAvailable(list1)) {
                 list.clear();
-                list.addAll(subjectForPig.getPigList());
+                list.addAll(list1);
                 adapter.notifyDataSetChanged();
 
                 tvCount.setText(list.size() + " 头 ");
